@@ -27,19 +27,21 @@ A simple React project that displays products from [FakeStore API](https://fakes
 ShopCart-Modal/
 │
 ├── public/
-│ └── index.html # HTML entry (Tailwind + FA CDN added)
+│   └── index.html             
 │
 ├── src/
-│ ├── components/
-│ │ ├── Navbar.js # Top navigation with cart icon + badge
-│ │ ├── ProductCard.js# Product grid card
-│ │ └── Cart.js # Cart modal overlay
-│ │
-│ ├── App.js # Main app logic (fetch products, manage cart state)
-│ └── App.css # Minimal custom CSS (line clamp + smooth scrolling)
+│   ├── components/
+│   │   ├── Navbar.js          
+│   │   ├── ProductCard.js     
+│   │   └── Cart.js            
+│   │
+│   ├── App.js                
+│   └── App.css                
 │
-├── package.json
-└── README.md
+├── .gitignore                 
+├── package.json               
+├── package-lock.json         
+└── README.md                
 
 ---
 
