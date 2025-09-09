@@ -25,11 +25,14 @@ A simple React project that displays products from [FakeStore API](https://fakes
 
 ## 📂 Project Structure
 ShopCart-Modal/
+|
 │
 ├── public/
+|
 │   └── index.html             
 │
 ├── src/
+|
 │   ├── components/
 │   │   ├── Navbar.js          
 │   │   ├── ProductCard.js     
