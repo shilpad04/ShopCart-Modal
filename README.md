@@ -28,16 +28,16 @@ A simple React project that displays products from [FakeStore API](https://fakes
 ShopCart-Modal/
 │
 ├── public/
-│   └── index.html
+│ └── index.html
 │
 ├── src/
-│   ├── components/
-│   │   ├── Navbar.js
-│   │   ├── ProductCard.js
-│   │   └── Cart.js
-│   │
-│   ├── App.js
-│   └── App.css
+│ ├── components/
+│ │ ├── Navbar.js
+│ │ ├── ProductCard.js
+│ │ └── Cart.js
+│ │
+│ ├── App.js
+│ └── App.css
 │
 ├── .gitignore
 ├── package.json
