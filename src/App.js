@@ -11,7 +11,7 @@ function App() {
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
 
-  // Search + Category filter
+  {/* Search + Category filter */}
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -32,7 +32,7 @@ function App() {
 
   if (loading) {
     return (
-      <h1 className="min-h-screen flex items-center justify-center bg-slate-900 text-slate-200">
+      <h1 className="min-h-screen flex items-center justify-center bg-slate-900 text-slate-200 italic">
         Data is loading please wait
       </h1>
     );
@@ -46,17 +46,17 @@ function App() {
     );
   }
 
-  // Unique categories
+  {/* Unique categories */}
   const categories = [...new Set(products.map((p) => p.category))];
 
-  // Filter by category + search
+  {/* Filter by category + search */}
   const filtered = products.filter((p) => {
     const byCat = selectedCategory ? p.category === selectedCategory : true;
     const bySearch = p.title.toLowerCase().includes(searchTerm.toLowerCase());
     return byCat && bySearch;
   });
 
-  // Cart actions
+  {/* Cart actions */}
   const addToCart = (p) => {
     if (cart.find((i) => i.id === p.id)) {
       alert("Item is already added to the cart");
