@@ -15,9 +15,6 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // Wishlist count for Navbar badge
-  const [wishlist, setWishlist] = useState([]);
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -72,14 +69,7 @@ function App() {
     setCart((prev) => prev.filter((i) => i.id !== id));
   };
 
-  //Wishlist actions
-  const toggleWishlist = (p) => {
-    setWishlist((prev) =>
-      prev.find((i) => i.id === p.id)
-        ? prev.filter((i) => i.id !== p.id)
-        : [...prev, p]
-    );
-  };
+
 
   return (
     <div className="App min-h-screen bg-slate-900 text-slate-200">
@@ -106,7 +96,6 @@ function App() {
             key={p.id}
             product={p}
             onAddCart={addToCart}
-            onToggleWishlist={() => toggleWishlist(p)}
           />
         ))}
       </div>

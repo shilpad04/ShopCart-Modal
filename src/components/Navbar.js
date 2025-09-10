@@ -18,7 +18,7 @@ function Navbar({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex flex-col gap-3">
         <div className="w-full flex items-center gap-3">
           <h2 className="shrink-0 font-['Playfair_Display'] italic text-2xl sm:text-3xl text-slate-100 tracking-wide">
-            Product Store
+           SHOPCART
           </h2>
 
           <div className="flex-1 flex items-center justify-center">
@@ -81,7 +81,7 @@ function Navbar({
           </div>
         </div>
 
-        {/* Categories row aligned with search */}
+        {/* Categories*/}
         <div className="w-full flex justify-center">
           <div className="w-full max-w-[34rem] flex flex-col items-center">
             <select
