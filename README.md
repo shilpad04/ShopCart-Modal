@@ -4,6 +4,36 @@ A simple React project that displays products from [FakeStore API](https://fakes
 
 ---
 
+## 📂 Project Structure
+shopcart-modal/
+│
+├── node_modules/
+│
+├── public/
+│ ├── favicon.ico
+│ ├── index.html
+│ ├── manifest.json
+│ └── robots.txt
+│
+├── src/
+│ ├── components/
+│ │ ├── Navbar.js
+│ │ ├── ProductCard.js
+│ │ └── Cart.js
+│ │
+│ ├── App.js
+│ ├── App.css
+│ ├── index.js
+│ ├── index.css
+│ └── reportWebVitals.js
+│
+├── .gitignore
+├── package.json
+├── package-lock.json
+└── README.md
+
+---
+
 ## 🚀 Features
 - 📦 **Product Listing** – fetches products and displays them in a responsive grid.  
 - 🛍 **Add to Cart** – add items to the cart with a single click.  
@@ -35,7 +65,7 @@ npm start
 
 Open in browser:
 http://localhost:3000
-
+---
 
 ## 📝 Usage
 Click “Add to Cart” → item is added.
@@ -43,12 +73,15 @@ Click the cart icon in navbar → modal opens with items.
 Click Remove → deletes item from cart.
 Cart badge updates in real-time.
 
+---
 
 ## 🔮 Future Improvements
 Quantity update in cart
 Checkout flow
 Better product categories filter
 Dark/light theme toggle
+
+---
 
 ## 👨‍💻 Author
 Developed with ❤️ using React & TailwindCSS.
