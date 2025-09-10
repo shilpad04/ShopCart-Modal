@@ -5,22 +5,27 @@ import Cart from "./components/Cart";
 import "./App.css";
 
 function App() {
-  const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
 
+  // Search + Category filter
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  // Wishlist count for Navbar badge
+  const [wishlist, setWishlist] = useState([]);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const productResponse = await fetch(
-          "https://fakestoreapi.com/products"
-        );
-        const productData = await productResponse.json();
-        setProduct(productData);
-      } catch (error) {
-        setError(error.message);
+        const res = await fetch("https://fakestoreapi.com/products");
+        const data = await res.json();
+        setProducts(data);
+      } catch (err) {
+        setError(err.message || "Failed to fetch");
       } finally {
         setLoading(false);
       }
@@ -44,33 +49,65 @@ function App() {
     );
   }
 
+  // Unique categories
+  const categories = [...new Set(products.map((p) => p.category))];
+
+  // Filter by category + search
+  const filtered = products.filter((p) => {
+    const byCat = selectedCategory ? p.category === selectedCategory : true;
+    const bySearch = p.title.toLowerCase().includes(searchTerm.toLowerCase());
+    return byCat && bySearch;
+  });
+
+  // Cart actions
   const addToCart = (p) => {
-    if (cart.find((item) => item.id === p.id)) {
+    if (cart.find((i) => i.id === p.id)) {
       alert("Item is already added to the cart");
       return;
-    } else {
-      setCart([...cart, p]);
     }
+    setCart((prev) => [...prev, p]);
   };
 
-  const removeCart = (productId) => {
-    setCart(cart.filter((item) => item.id !== productId));
+  const removeCart = (id) => {
+    setCart((prev) => prev.filter((i) => i.id !== id));
+  };
+
+  //Wishlist actions
+  const toggleWishlist = (p) => {
+    setWishlist((prev) =>
+      prev.find((i) => i.id === p.id)
+        ? prev.filter((i) => i.id !== p.id)
+        : [...prev, p]
+    );
   };
 
   return (
     <div className="App min-h-screen bg-slate-900 text-slate-200">
-      <Navbar cartCount={cart.length} onCartClick={() => setShowCart(true)} />
+      <Navbar
+        cartCount={cart.length}
+        onCartClick={() => setShowCart(true)}
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+        searchValue={searchTerm}
+        onSearch={setSearchTerm}
+      />
 
-      <h1 className="font-['Playfair_Display'] italic mx-auto mb-6 mt-6 max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-2xl 
-      sm:text-3xl lg:text-4xl font-extrabold tracking-wide text-emerald-300">
+      <h1 className="font-['Merriweather'] italic mx-auto mb-6 mt-6 max-w-7xl px-4 sm:px-6 lg:px-8 text-center 
+      text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-wide text-emerald-300">
         Products
       </h1>
 
-      {/* RWD*/}
+      {/* Single column on mobile*/}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 
       md:grid-cols-3 xl:grid-cols-4">
-        {product.map((p) => (
-          <ProductCard product={p} key={p.id} onAddCart={addToCart} />
+        {filtered.map((p) => (
+          <ProductCard
+            key={p.id}
+            product={p}
+            onAddCart={addToCart}
+            onToggleWishlist={() => toggleWishlist(p)}
+          />
         ))}
       </div>
 
