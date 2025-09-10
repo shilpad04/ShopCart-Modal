@@ -1,7 +1,9 @@
+// src/App.js
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import ProductCard from "./components/ProductCard";
 import Cart from "./components/Cart";
+import ProductDetails from "./components/ProductDetails";
 import "./App.css";
 
 function App() {
@@ -10,10 +12,9 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
-
-  {/* Search + Category filter */}
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -40,23 +41,20 @@ function App() {
 
   if (error) {
     return (
-      <h1 className="min-h-screen flex items-center justify-center bg-slate-900 text-red-300">
+      <h1 className="min-h-screen flex items-center justify-center bg-slate-900 text-red-300 italic">
         Error: {error}
       </h1>
     );
   }
 
-  {/* Unique categories */}
   const categories = [...new Set(products.map((p) => p.category))];
 
-  {/* Filter by category + search */}
   const filtered = products.filter((p) => {
     const byCat = selectedCategory ? p.category === selectedCategory : true;
     const bySearch = p.title.toLowerCase().includes(searchTerm.toLowerCase());
     return byCat && bySearch;
   });
 
-  {/* Cart actions */}
   const addToCart = (p) => {
     if (cart.find((i) => i.id === p.id)) {
       alert("Item is already added to the cart");
@@ -69,7 +67,8 @@ function App() {
     setCart((prev) => prev.filter((i) => i.id !== id));
   };
 
-
+  const openProductDetails = (product) => setSelectedProduct(product);
+  const closeProductDetails = () => setSelectedProduct(null);
 
   return (
     <div className="App min-h-screen bg-slate-900 text-slate-200">
@@ -88,7 +87,6 @@ function App() {
         Products
       </h1>
 
-      {/* Single column on mobile*/}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 
       md:grid-cols-3 xl:grid-cols-4">
         {filtered.map((p) => (
@@ -96,6 +94,7 @@ function App() {
             key={p.id}
             product={p}
             onAddCart={addToCart}
+            onView={openProductDetails}
           />
         ))}
       </div>
@@ -105,6 +104,14 @@ function App() {
           cart={cart}
           onClose={() => setShowCart(false)}
           onRemoveFromCart={removeCart}
+        />
+      )}
+
+      {selectedProduct && (
+        <ProductDetails
+          product={selectedProduct}
+          onClose={closeProductDetails}
+          onAddCart={addToCart}
         />
       )}
     </div>
